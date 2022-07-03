@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"    
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Huzjak - Aplikacija 6</title>
+        <h:outputStylesheet library="css" name="default.css"  /> 
+    </h:head>
+    <h:body>
+    	<h:link outcome="index.xhtml" value="Početna"/><br/><br/>
+        <h2>Planiranje</h2>
+        <h:form rendered="#{AplikacijaWs.postojiToken}">
+	        <h:selectOneMenu rendered="#{AplikacijaWs.postojiToken}" value="#{AplikacijaWs.aerodromMeteo}">
+			   <f:selectItems itemValue="#{a.icao}" value="#{AplikacijaWs.aerodromi}" var="a" itemLabel ="#{a.icao}" /> 
+			</h:selectOneMenu>
+			<h:commandButton action="#{AplikacijaWs.dajMeteo}" value="Daj meteo podatke"></h:commandButton>
+		</h:form><br/><br/>
+        <h:dataTable rendered="#{AplikacijaWs.postojiToken}" value="#{AplikacijaWs.meteoPodaci}" var="m"
+                     styleClass="authorTable"
+                     headerClass="authorTableHeader"
+                     rowClasses="authorTableOddRow,authorTableEvenRow">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Temperatura" />
+                </f:facet>
+                <h:outputText value="#{m.temperatureValue}" />
+            </h:column>  
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Vlage" />
+                </f:facet>
+                <h:outputText value="#{m.humidityValue}" />
+            </h:column>  
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Tlak" />
+                </f:facet>
+                <h:outputText value="#{m.pressureValue}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Vrijeme" />
+                </f:facet>
+                <h:outputText value="#{m.cloudsName}" />
+            </h:column>
+        </h:dataTable>
+        <br />
+        <h:outputText rendered="#{!AplikacijaWs.postojiToken}" value="Info >> Niste prijavljeni!" />
+    </h:body>
+</html> 

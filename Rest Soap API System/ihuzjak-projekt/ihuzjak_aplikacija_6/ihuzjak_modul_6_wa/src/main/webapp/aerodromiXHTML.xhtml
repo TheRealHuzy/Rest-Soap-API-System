@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"    
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Huzjak - Aplikacija 6</title>
+        <h:outputStylesheet library="css" name="default.css"  /> 
+    </h:head>
+    <h:body>
+    	<h:link outcome="index.xhtml" value="Početna"/><br/><br/>
+        <h2>Pregled aerodroma</h2>
+        <h:form rendered="#{AplikacijaWs.postojiToken}">
+	        <h:selectOneMenu rendered="#{AplikacijaWs.postojiToken}" value="#{AplikacijaWs.aerodrom}">
+			   <f:selectItems itemValue="#{a.icao}" value="#{AplikacijaWs.aerodromi}" var="a" itemLabel ="#{a.icao}" /> 
+			</h:selectOneMenu>
+			<h:commandButton action="#{AplikacijaWs.dodajAerodrom}" value="Dodaj -Rest-"></h:commandButton>
+			<h:commandButton action="#{AplikacijaWs.dodajAerodromWeb}" value="Dodaj -Web-"></h:commandButton>
+		</h:form><br/><br/>
+        <h:dataTable rendered="#{AplikacijaWs.postojiToken}" value="#{AplikacijaWs.praceni}" var="p"
+                     styleClass="authorTable"
+                     headerClass="authorTableHeader"
+                     rowClasses="authorTableOddRow,authorTableEvenRow">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Icao" />
+                </f:facet>
+                <h:outputText value="#{p.ident}" />
+            </h:column>
+        </h:dataTable>
+        <br />
+        <br />
+        <h:outputText rendered="#{!AplikacijaWs.postojiToken}" value="Info >> Niste prijavljeni!" />
+    </h:body>
+</html> 
